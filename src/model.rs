@@ -9,3 +9,11 @@ pub struct Ticket {
     pub name: String,
 
 }
+
+#[derive(sqlx::FromRow, Debug,Serialize, Deserialize)]
+pub struct Account{
+    id: i64,
+    password: String,
+    title: String,
+    username: String
+}

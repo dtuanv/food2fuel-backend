@@ -1,17 +1,25 @@
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
+use sqlx::postgres::PgPoolOptions;
 
-#[get("/")]
-async fn hello() -> impl Responder {
-    HttpResponse::Ok().body("Hello world!")
-}
+mod model;
+mod db;
+mod route;
+mod handler;
+use model:: Account;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    HttpServer::new(|| {
+
+    // Start Actix web server
+    let pool = db::create_pool().await;
+
+    HttpServer::new(move || {
         App::new()
-            .service(hello)
-  })
-    .bind("127.0.0.1:8082")?
-    .run()
-    .await
+            .app_data(web::Data::new(pool.clone()))
+            .configure(route::configure_routes)
+    })
+        .bind("127.0.0.1:8080")?
+        .run()
+        .await
+
 }
