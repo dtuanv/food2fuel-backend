@@ -1,13 +1,14 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(sqlx::FromRow,Debug, Serialize, Deserialize)]
 
-//This allows the Ticket struct to be printed for debugging purposes
+//This allows the Item struct to be printed for debugging purposes
 // and to be serialized and deserialized to and from JSON
-pub struct Ticket {
-    pub id: i32,
-    pub name: String,
-
+pub struct Item{
+    pub id:i64,
+    pub description: String,
+    pub category: String,
+    pub date: String,
 }
 
 #[derive(sqlx::FromRow, Debug,Serialize, Deserialize)]
