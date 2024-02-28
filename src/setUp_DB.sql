@@ -5,7 +5,9 @@ CREATE TABLE Item (
     date VARCHAR(255)
 );
 
-
- id BIGSERIAL PRIMARY KEY,
+/*
+id BIGSERIAL PRIMARY KEY,
 
  Mit BIGSERIAL wird eine Spalte vom Typ BIGINT erstellt, die automatisch inkrementiert wird.
+ */
+
