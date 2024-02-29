@@ -39,11 +39,11 @@ pub async fn get_item_by_id(pool: &PgPool, id: i64) -> Result<Vec<Item>, Error> 
 
 pub async fn insert_item(pool: &PgPool, item: Item) -> Result<Item, sqlx::Error> {
     let inserted_item = sqlx::query_as::<_, Item>(
-        "INSERT INTO item (description, category, date) VALUES ($1, $2, $3) RETURNING id, description, category, date"
+        "INSERT INTO item (description, category, expirationdate) VALUES ($1, $2, $3) RETURNING id, description, category, expirationdate"
     )
         .bind(&item.description)
         .bind(&item.category)
-        .bind(&item.date)
+        .bind(&item.expirationdate)
         .fetch_one(pool)
         .await?;
 
