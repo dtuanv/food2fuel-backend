@@ -16,7 +16,7 @@ pub async fn get_items(pool: web :: Data<sqlx::PgPool>) -> impl Responder {
     let result = db::get_items(pool.get_ref()).await;
     match result {
         Ok(items) => HttpResponse::Ok().json(items),
-        Err(_) => HttpResponse::InternalServerError().body("Error fetching accounts"),
+        Err(_) => HttpResponse::InternalServerError().body("Error fetching Item"),
     }
 }
 pub async fn get_item_by_id(path: web::Path<(i64,)>,pool: web :: Data<sqlx::PgPool>) -> impl Responder {
@@ -25,12 +25,13 @@ pub async fn get_item_by_id(path: web::Path<(i64,)>,pool: web :: Data<sqlx::PgPo
     let result = db::get_item_by_id(pool.get_ref(), id).await;
     match result {
         Ok(item) => HttpResponse::Ok().json(item),
-        Err(_) => HttpResponse::InternalServerError().body("Error fetching accounts"),
+        Err(_) => HttpResponse::InternalServerError().body("Error fetching Item"),
     }
 }
 
 pub async fn create_item(pool: web :: Data<sqlx::PgPool> ,item: web::Json<Item>) -> impl Responder  {
     let item = item.into_inner(); // Extract the Item object from web::Json
+
     let result = db::insert_item(pool.get_ref(), item).await;
     match result {
         Ok(inserted_item) => HttpResponse::Created().json(inserted_item),

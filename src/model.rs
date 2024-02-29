@@ -8,7 +8,7 @@ pub struct Item{
     pub id:i64,
     pub description: String,
     pub category: String,
-    pub date: String,
+    pub expirationdate: String,
 }
 
 #[derive(sqlx::FromRow, Debug,Serialize, Deserialize)]
